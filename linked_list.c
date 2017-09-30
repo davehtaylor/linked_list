@@ -140,8 +140,8 @@ void *delete_tail(List *list)
         for (cursor = list->head; cursor->next != list->tail; cursor = cursor->next)
             ;
 
-        list->tail = cursor;
         free(cursor->next);
+        list->tail = cursor;
     }
 }
 
