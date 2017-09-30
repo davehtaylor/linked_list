@@ -1,29 +1,41 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-// Structure for our linked list
+// Structure for our linked list, with one element of int data
 typedef struct Node 
 {
     int data;
-    struct Node* next;
+    struct Node *next;
 } Node;
 
-// Create a new node
-Node *create_node(int data); 
+/* Structure to hold head and tail pointers. This will be the public interface
+ * to the linked list
+ */
+typedef struct List
+{
+    Node *head;
+    Node *tail;
+} List;
 
-// Add an element to the end of the list
-Node *append_node(Node *head, int data); 
+// Create a list
+List *create_list(void);
+
+// Append an element
+void *append_list(List *list, int data); 
+
+// Prepend and element
+void *prepend_list(List *list, int data);
 
 // Delete head from list
-Node *delete_head(Node *head); 
+void *delete_head(List *list); 
 
 // Delete last node from list
-Node *delete_tail(Node *head); 
+void *delete_tail(List *list); 
 
 // Print the data in each node of the list
-void print_list(Node *head); 
+void print_list(List *list); 
 
 // Destroy a list
-Node *destroy_list(Node *head); 
+List *destroy_list(List *list); 
 
 #endif

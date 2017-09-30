@@ -3,8 +3,28 @@
 #include "linked_list.h"    // our custom header file
 
 
+// Create list
+List *create_list(void)
+{
+    List *new_list = malloc(sizeof(List));
+
+    // Make sure we were able to allocate the memory
+    if (new_list != NULL) 
+    {
+        new_list->head = NULL;
+        new_list->tail = NULL;
+        return new_list;
+    }
+    else 
+    {
+        fprintf(stderr, "create_list could not allocate memory");
+        return NULL;
+    }
+}
+
+
 // Create a node
-Node *create_node(int data) 
+static Node *create_node(int data) 
 {
     Node *new_node = malloc(sizeof(Node));
 
@@ -17,115 +37,170 @@ Node *create_node(int data)
     }
     else 
     {
-        fprintf(stderr, "Could not allocate memory");
+        fprintf(stderr, "create_node could not allocate memory");
         return NULL;
     }
 }
 
 
-// Add an element to the end of the list
-Node *append_node(Node *head, int data) 
+// Add an element to the tail of the list
+void *append_list(List *list, int data) 
 {
-    Node *cursor;         
+    // Make sure the list actually exists. If not, we'll create it
+    if (list == NULL)
+    {
+        list = create_list();
+    }
 
     // Check to see if list is empty. If so, we'll create a new node.
-    if (head == NULL) 
+    if (list->head == NULL) 
     {
-        return create_node(data);
+        list->head = list->tail = create_node(data);
     }
     else 
     {
-        // Go to the end of the list
-        for (cursor = head; cursor->next != NULL; cursor = cursor->next)
-            ;
+        list->tail->next = create_node(data);
+        list->tail = list->tail->next;
+    }
+}
 
-        cursor->next = create_node(data);
 
-        return head;
+// Add an element to the head of the list
+void *prepend_list(List *list, int data) 
+{
+    Node *first;
+
+    // Make sure the list actually exists. If not, we'll create it
+    if (list == NULL)
+    {
+        list = create_list();
+    }
+
+    // Check to see if list is empty. If so, we'll create a new node.
+    if (list->head == NULL) 
+    {
+        list->head = list->tail = create_node(data);
+    }
+    else 
+    {
+        first = create_node(data);
+        first->next = list->head;
+        list->head = first;
     }
 }
 
 
 // Delete head from list
-Node *delete_head(Node *head) 
+void *delete_head(List *list) 
 {
-    Node *first = head;
+    Node *first;
     
     // Make sure the list isn't empty
-    if (head == NULL) 
-        return NULL;
+    if (list->head == NULL) 
+    {
+        fprintf(stderr, "delete_head has nothing to do");
+    }
     
     // If the head is the only node in the list, just free it
-    else if (head->next == NULL) 
+    else if (list->head == list->tail) 
     {
-        free(head);
-        return NULL;
+        free(list->head);
+        list->head = list->tail = NULL;
     }
     else 
     {
-        head = head->next;
+        first = list->head;
+
+        list->head = list->head->next;
         free(first);
-        return head;
     }
 }
 
 
 // Delete last node from list
-Node *delete_tail(Node *head) 
+void *delete_tail(List *list) 
 {
     Node *cursor, *temp;
 
     // Make sure list isn't empty
-    if (head == NULL) 
+    if (list->head == NULL) 
     {
-        return NULL;
+        fprintf(stderr, "delete_tail has nothing to do");
     }
 
-    // See if head is the only node in the list
-    else if (head->next == NULL)
+    // See if tail is the only node in the list
+    else if (list->head == list->tail)
     {
-        free(head); 
-        return NULL;
+        free(list->tail); 
+        list->head = list->tail = NULL;
     }
     else 
     {
-        // Go to the next to the last element in the list
-        for (cursor = head; cursor->next->next != NULL; cursor = cursor->next)
+        // Go to the next to last node
+        for (cursor = list->head; cursor->next != list->tail; cursor = cursor->next)
             ;
 
+        list->tail = cursor;
         free(cursor->next);
-        cursor->next = NULL;
-        return head;
     }
 }
 
 
 // Print the data in each node of the list
-void print_list(Node *head) 
+void print_list(List *list) 
 {
-    Node* cursor = head;
+    Node* cursor;
 
-    while (cursor != NULL) 
+    // Make sure list isn't empty
+    if (list->head == NULL || list->tail == NULL) 
     {
-        printf("%d ", cursor->data);
-        cursor = cursor->next;
+        printf("<empty list>\n");
+    }
+    else 
+    {
+        cursor = list->head;
+
+        while (cursor != NULL) 
+        {
+            printf("%d ", cursor->data);
+            cursor = cursor->next;
+        }
     }
 }
 
 
 // Destroy a list
-Node *destroy_list(Node *head) 
+List *destroy_list(List *list) 
 {
     Node *cursor, *temp;
     
-    while (cursor != NULL) 
+    // Make sure the list isn't empty already
+    if (list == NULL)
     {
-        // Save address of next node in cursor then free the current node
-        temp = cursor->next;
-        free(cursor);
-        // Move the cursor to the address of the next node stored in temp
-        cursor = temp;
+        return NULL;
     }
+    // Make sure the pointers in the list aren't empty
+    else if (list->head == NULL || list->tail == NULL)
+    {
+        free(list);
+        return NULL;
+    }
+    else 
+    {
+        cursor = list->head;
 
-    return NULL;
+        while (cursor != NULL) 
+        {
+            // Save address of next node after cursor then free the cursor 
+            temp = cursor->next;
+            free(cursor);
+            // Move the cursor to the address of the next node stored in temp
+            cursor = temp;
+        }
+
+        // Free the whole struct
+        free(list);
+
+        return NULL;
+    }
 }
