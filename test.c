@@ -3,42 +3,54 @@
 
 int main(void)
 {
-    Node *head = NULL;
+
+    List *list = NULL;
 
     // Create list
     printf("-> Creating list\n");
-    head = create_node(95);
-    print_list(head);
+    list = create_list();
     putchar('\n');
 
     // Append
     printf("-> Appending\n");
-    head = append_node(head, 8575);
-    print_list(head);
+    append_list(list, 95);
+    print_list(list);
     putchar('\n');
 
     // Append
     printf("-> Appending\n");
-    head = append_node(head, 2501);
-    print_list(head);
+    append_list(list, 2501);
+    print_list(list);
+    putchar('\n');
+
+    // Prepend
+    printf("-> Prepending\n");
+    prepend_list(list, 2095);
+    print_list(list);
+    putchar('\n');
+
+    // Prepend
+    printf("-> Prepending\n");
+    prepend_list(list, 8575);
+    print_list(list);
     putchar('\n');
 
     // Delete head
     printf("-> About to delete head\n");
-    head = delete_head(head);
-    print_list(head);
+    delete_head(list);
+    print_list(list);
     putchar('\n');
 
     // Delete tail
     printf("-> About to delete tail\n");
-    head = delete_tail(head);
-    print_list(head);
+    delete_tail(list);
+    print_list(list);
     putchar('\n');
 
     // Destroy it
     printf("-> About to destroy list\n");
-    head = destroy_list(head);
-    if (head == NULL)
+    list = destroy_list(list);
+    if (list == NULL)
         printf("-> List destroyed\n");
 
     return 0;
