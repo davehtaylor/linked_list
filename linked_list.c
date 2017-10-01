@@ -1,6 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>         // for malloc(), free()
-#include "linked_list.h"    // our custom header file
+#include "linked_list.h"    // our linked list header file
+
+
+// Structure for our linked list, with one element of int data
+typedef struct Node 
+{
+    int data;
+    struct Node *next;
+} Node;
+
+
+/* Structure to hold head and tail pointers. This will be the public interface
+ * to the linked list.
+ */
+typedef struct List
+{
+    Node *head;
+    Node *tail;
+} List;
 
 
 // Create list
@@ -23,7 +41,7 @@ List *create_list(void)
 }
 
 
-// Create a node. This is a private function. External files should not call
+// Create a node
 static Node *create_node(int data) 
 {
     Node *new_node = malloc(sizeof(Node));

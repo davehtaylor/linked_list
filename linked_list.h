@@ -1,21 +1,8 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-// Structure for our linked list, with one element of int data
-typedef struct Node 
-{
-    int data;
-    struct Node *next;
-} Node;
-
-/* Structure to hold head and tail pointers. This will be the public interface
- * to the linked list
- */
-typedef struct List
-{
-    Node *head;
-    Node *tail;
-} List;
+// The public interface to our linked list
+typedef struct List List;
 
 // Create a list
 List *create_list(void);
