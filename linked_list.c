@@ -23,7 +23,7 @@ List *create_list(void)
 }
 
 
-// Create a node
+// Create a node. This is a private function. External files should not call
 static Node *create_node(int data) 
 {
     Node *new_node = malloc(sizeof(Node));
@@ -51,7 +51,6 @@ void append_list(List *list, int data)
     {
         list = create_list();
     }
-
     // Check to see if list is empty. If so, we'll create a new node.
     else if (list->head == NULL) 
     {
@@ -75,7 +74,6 @@ void prepend_list(List *list, int data)
     {
         list = create_list();
     }
-
     // Check to see if list is empty. If so, we'll create a new node.
     else if (list->head == NULL) 
     {
@@ -100,7 +98,6 @@ void delete_head(List *list)
     {
         fprintf(stderr, "delete_head has nothing to do");
     }
-    
     // If the head is the only node in the list, just free it
     else if (list->head == list->tail) 
     {
@@ -157,8 +154,7 @@ int count_list(List *list)
     {
        return 0; 
     }
-
-    // Check to see if list is empty. If so, we'll create a new node.
+    // Check to see if list is empty
     else if (list->head == NULL) 
     {
         return 0;
