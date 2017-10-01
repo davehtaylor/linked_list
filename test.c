@@ -9,6 +9,7 @@ int main(void)
     // Create list
     printf("-> Creating list\n");
     list = create_list();
+    print_list(list);
     putchar('\n');
 
     // Append

@@ -21,16 +21,16 @@ typedef struct List
 List *create_list(void);
 
 // Append an element
-void *append_list(List *list, int data); 
+void append_list(List *list, int data); 
 
 // Prepend and element
-void *prepend_list(List *list, int data);
+void prepend_list(List *list, int data);
 
 // Delete head from list
-void *delete_head(List *list); 
+void delete_head(List *list); 
 
 // Delete last node from list
-void *delete_tail(List *list); 
+void delete_tail(List *list); 
 
 // Print the data in each node of the list
 void print_list(List *list); 

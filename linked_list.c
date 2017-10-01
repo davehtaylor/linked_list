@@ -44,7 +44,7 @@ static Node *create_node(int data)
 
 
 // Add an element to the tail of the list
-void *append_list(List *list, int data) 
+void append_list(List *list, int data) 
 {
     // Make sure the list actually exists. If not, we'll create it
     if (list == NULL)
@@ -66,7 +66,7 @@ void *append_list(List *list, int data)
 
 
 // Add an element to the head of the list
-void *prepend_list(List *list, int data) 
+void prepend_list(List *list, int data) 
 {
     Node *first;
 
@@ -91,7 +91,7 @@ void *prepend_list(List *list, int data)
 
 
 // Delete head from list
-void *delete_head(List *list) 
+void delete_head(List *list) 
 {
     Node *first;
     
@@ -109,18 +109,17 @@ void *delete_head(List *list)
     }
     else 
     {
-        first = list->head;
-
-        list->head = list->head->next;
-        free(first);
+        first = list->head->next;
+        free(list->head);
+        list->head = first;
     }
 }
 
 
 // Delete last node from list
-void *delete_tail(List *list) 
+void delete_tail(List *list) 
 {
-    Node *cursor, *temp;
+    Node *cursor;
 
     // Make sure list isn't empty
     if (list->head == NULL) 
@@ -137,11 +136,12 @@ void *delete_tail(List *list)
     else 
     {
         // Go to the next to last node
-        for (cursor = list->head; cursor->next != list->tail; cursor = cursor->next)
+         for (cursor = list->head; cursor->next != list->tail; cursor = cursor->next)
             ;
 
-        free(cursor->next);
+        free(list->tail);
         list->tail = cursor;
+        list->tail->next = NULL;
     }
 }
 
@@ -152,19 +152,18 @@ void print_list(List *list)
     Node* cursor;
 
     // Make sure list isn't empty
-    if (list->head == NULL || list->tail == NULL) 
+    if (list->head == NULL) 
     {
         printf("<empty list>\n");
     }
+    else if (list->head == list->tail)
+    {
+        printf("%d", list->head->data);
+    }
     else 
     {
-        cursor = list->head;
-
-        while (cursor != NULL) 
-        {
+        for (cursor = list->head; cursor != NULL; cursor = cursor->next)
             printf("%d ", cursor->data);
-            cursor = cursor->next;
-        }
     }
 }
 
@@ -180,7 +179,7 @@ List *destroy_list(List *list)
         return NULL;
     }
     // Make sure the pointers in the list aren't empty
-    else if (list->head == NULL || list->tail == NULL)
+    else if (list->head == NULL)
     {
         free(list);
         return NULL;
