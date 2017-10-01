@@ -5,6 +5,12 @@ int main(void)
 {
 
     List *list = NULL;
+    int len;
+
+    // Test non-existent list
+    printf("-> Testing null list\n");
+    print_list(list);
+    putchar('\n');
 
     // Create list
     printf("-> Creating list\n");
@@ -36,6 +42,11 @@ int main(void)
     print_list(list);
     putchar('\n');
 
+    // Count list
+    printf("-> About to count the elements in list\n");
+    len = count_list(list);
+    printf("List is %d nodes long\n", len);
+    
     // Delete head
     printf("-> About to delete head\n");
     delete_head(list);
