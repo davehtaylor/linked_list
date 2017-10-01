@@ -19,6 +19,7 @@ By default, the list holds one element of signed integer data.
 
 **Planned Operations for Future Release**
 
+- Deleting arbitrary elements
 - Counting occurrences of a specific value
 - Deleting all occurrences of a specific value
 - Inserting element at arbitrary point
