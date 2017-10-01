@@ -23,10 +23,10 @@ List *create_list(void);
 // Append an element
 void append_list(List *list, int data); 
 
-// Prepend and element
+// Prepend an element
 void prepend_list(List *list, int data);
 
-// Count list
+// Count the number of elements in the list
 int count_list(List *list);
 
 // Delete head from list
