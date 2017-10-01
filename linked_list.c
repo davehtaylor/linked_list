@@ -53,7 +53,7 @@ void append_list(List *list, int data)
     }
 
     // Check to see if list is empty. If so, we'll create a new node.
-    if (list->head == NULL) 
+    else if (list->head == NULL) 
     {
         list->head = list->tail = create_node(data);
     }
@@ -77,7 +77,7 @@ void prepend_list(List *list, int data)
     }
 
     // Check to see if list is empty. If so, we'll create a new node.
-    if (list->head == NULL) 
+    else if (list->head == NULL) 
     {
         list->head = list->tail = create_node(data);
     }
@@ -146,16 +146,52 @@ void delete_tail(List *list)
 }
 
 
+// Count the number of elements in the list
+int count_list(List *list)
+{
+    int i, count;
+    Node *cursor;
+
+    // Make sure list exists 
+    if (list == NULL)
+    {
+       return 0; 
+    }
+
+    // Check to see if list is empty. If so, we'll create a new node.
+    else if (list->head == NULL) 
+    {
+        return 0;
+    }
+    else 
+    {
+        cursor = list->head;
+        count = 0;
+
+        for (i = 0; cursor != NULL; cursor =  cursor->next)
+            count++; 
+
+        return count;
+    }
+}
+
+
 // Print the data in each node of the list
 void print_list(List *list) 
 {
     Node* cursor;
 
-    // Make sure list isn't empty
-    if (list->head == NULL) 
+    // Make sure list is initialized
+    if (list == NULL) 
+    {
+        printf("<list does not exist>\n"); 
+    }
+    // Make sure the list isn't empty
+    else if (list->head == NULL)
     {
         printf("<empty list>\n");
     }
+    // See if there is only one element in the list
     else if (list->head == list->tail)
     {
         printf("%d", list->head->data);

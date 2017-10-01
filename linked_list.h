@@ -26,11 +26,17 @@ void append_list(List *list, int data);
 // Prepend and element
 void prepend_list(List *list, int data);
 
+// Count list
+int count_list(List *list);
+
 // Delete head from list
 void delete_head(List *list); 
 
 // Delete last node from list
 void delete_tail(List *list); 
+
+// Count elements in list
+int count_list(List *list);
 
 // Print the data in each node of the list
 void print_list(List *list); 
