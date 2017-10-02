@@ -35,7 +35,7 @@ List *create_list(void)
     }
     else 
     {
-        fprintf(stderr, "create_list could not allocate memory");
+        fprintf(stderr, "create_list could not allocate memory\n");
         return NULL;
     }
 }
@@ -55,7 +55,7 @@ static Node *create_node(int data)
     }
     else 
     {
-        fprintf(stderr, "create_node could not allocate memory");
+        fprintf(stderr, "create_node could not allocate memory\n");
         return NULL;
     }
 }
@@ -114,7 +114,7 @@ void delete_head(List *list)
     // Make sure list exists, and that it's not empty
     if (list == NULL || list->head == NULL)
     {
-        fprintf(stderr, "delete_head has nothing to do");
+        fprintf(stderr, "delete_head has nothing to do\n");
     }
     // If the head is the only node in the list, just free it
     else if (list->head == list->tail) 
@@ -139,7 +139,7 @@ void delete_tail(List *list)
     // Make sure list exists, and that it's not empty
     if (list == NULL || list->head == NULL)
     {
-        fprintf(stderr, "delete_tail has nothing to do");
+        fprintf(stderr, "delete_tail has nothing to do\n");
     }
     // See if tail is the only node in the list
     else if (list->head == list->tail)
@@ -168,12 +168,13 @@ static void delete_next_element(List* list, Node *node)
     // Make sure we're not trying to delete past the end
     if (node->next == NULL)
     {
-        fprintf(stderr, "delete_element has nothing to do");
+        fprintf(stderr, "delete_element has nothing to do\n");
     }
-    // See if the current element will be the new tail 
+    // See if the current element will become the new tail 
     else if (node->next == list->tail)
     {
-        free(list->tail);
+        free(node->next);
+        node->next = NULL;
         list->tail = node;
     }
     else
@@ -194,7 +195,7 @@ void delete_index(List *list, int index)
     // Make sure list exists, and that it's not empty
     if (list == NULL || list->head == NULL)
     {
-        fprintf(stderr, "delete_element has nothing to do");
+        fprintf(stderr, "delete_element has nothing to do\n");
     }
     // See if we're deleting the head, or if there is only one element in list
     else if (index == 1 || list->head == list->tail)
@@ -222,7 +223,7 @@ void delete_all_value(List *list, int key)
     // Make sure list is initialized, and that it's not empty
     if (list == NULL || list->head == NULL) 
     {
-        fprintf(stderr, "delete_all_value has nothing to do");
+        fprintf(stderr, "delete_all_value has nothing to do\n");
     }
     else
     {
@@ -231,9 +232,15 @@ void delete_all_value(List *list, int key)
             while (list->head->data == key)
                 delete_head(list);
         
-        for (cursor = list->head; cursor->next->next != NULL; cursor = cursor->next)
+        cursor = list->head;
+
+        // We want this code to run at least once before looping
+        do 
+        {
             if (cursor->next->data == key)
               delete_next_element(list, cursor);
+        }
+        while (cursor->next != list->tail);
     }
 }
 
