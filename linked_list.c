@@ -161,18 +161,32 @@ void delete_tail(List *list)
 
 
 // Delete element helper function
-static void delete_next_element(Node *node)
+static void delete_next_element(List* list, Node *node)
 {
     Node *temp;
 
-    temp = node->next;
-    free(node);
-    node->next = temp;
+    // Make sure we're not trying to delete past the end
+    if (node->next == NULL)
+    {
+        fprintf(stderr, "delete_element has nothing to do");
+    }
+    // See if the current element will be the new tail 
+    else if (node->next == list->tail)
+    {
+        free(list->tail);
+        list->tail = node;
+    }
+    else
+    {
+        temp = node->next->next;
+        free(node->next);
+        node->next = temp;
+    }
 }
 
 
 // Delete arbitrary element from list
-void delete_any(List *list, int index)
+void delete_index(List *list, int index)
 {
     int i;
     Node *cursor, *temp;
@@ -192,10 +206,34 @@ void delete_any(List *list, int index)
         cursor = list->head;
 
         // Go to the element before the one we're going to delete
-        for (i = 1; i < index - 1; i++)
+        for (i = 0; i < index - 1; i++)
            cursor = cursor->next; 
 
-        delete_next_element(cursor->next);
+        delete_next_element(list, cursor);
+    }
+}
+
+
+// Delete occurrences of a particular value
+void delete_all_value(List *list, int key)
+{
+    Node *cursor;
+
+    // Make sure list is initialized, and that it's not empty
+    if (list == NULL || list->head == NULL) 
+    {
+        fprintf(stderr, "delete_all_value has nothing to do");
+    }
+    else
+    {
+        // First check if the head contains the value
+        if (list->head->data == key)
+            while (list->head->data == key)
+                delete_head(list);
+        
+        for (cursor = list->head; cursor->next->next != NULL; cursor = cursor->next)
+            if (cursor->next->data == key)
+              delete_next_element(list, cursor);
     }
 }
 

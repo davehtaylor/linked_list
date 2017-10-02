@@ -53,9 +53,14 @@ int main(void)
     count = count_value(list, 95);
     printf("'95' appears %d times\n", count);
 
+    // Delete occurences of a particular element
+    printf("-> About to delete all occurences of '95' in list\n");
+    delete_all_value(list, 95);
+    print_list(list);
+
     // Delete arbitrary element
     printf("-> About to delete an arbitrary element\n");
-    delete_any(list, 1);
+    delete_index(list, 1);
     print_list(list);
 
     // Delete head

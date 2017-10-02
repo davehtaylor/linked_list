@@ -20,7 +20,10 @@ void delete_head(List *list);
 void delete_tail(List *list); 
 
 // Delete arbitrary element from list
-void delete_any(List *list, int index);
+void delete_index(List *list, int index);
+
+// Delete all occurrences of a particular from list
+void delete_all_value(List *list, int key);
 
 // Count the number of elements in list
 int list_length(List *list);
