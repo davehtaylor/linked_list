@@ -59,6 +59,11 @@ int main(void)
     append_list(list, 95);
     print_list(list);
 
+    // Append
+    printf("-> Appending\n");
+    append_list(list, 107);
+    print_list(list);
+
     // List length
     printf("-> About to count the elements in list\n");
     len = list_length(list);

@@ -64,13 +64,16 @@ static Node *create_node(int data)
 // Add an element to the tail of the list
 void append_list(List *list, int data) 
 {
+    Node *temp;
+
     // Make sure the list actually exists. If not, we'll create it
     if (list == NULL)
     {
         list = create_list();
     }
+    
     // Check to see if list is empty. If so, we'll create a new node.
-    else if (list->head == NULL) 
+    if (list->head == NULL) 
     {
         list->head = list->tail = create_node(data);
     }
@@ -227,7 +230,7 @@ void delete_all_value(List *list, int key)
     }
     else
     {
-        // First check if the head contains the value
+        // First check if the head contains the value, keep going if necessary
         if (list->head->data == key)
             while (list->head->data == key)
                 delete_head(list);
@@ -238,9 +241,11 @@ void delete_all_value(List *list, int key)
         do 
         {
             if (cursor->next->data == key)
-              delete_next_element(list, cursor);
+                delete_next_element(list, cursor);
+
+            cursor = cursor->next;
         }
-        while (cursor->next != list->tail);
+        while (cursor != list->tail);
     }
 }
 
