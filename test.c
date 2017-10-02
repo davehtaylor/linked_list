@@ -1,13 +1,16 @@
 /* Test cases for linked list module */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "linked_list.h"
 
 int main(void)
 {
 
     List *list = NULL;
-    int len, count;
+    int i, len, count;
+    srand(time(NULL));
 
     // Test non-existent list
     printf("-> Testing null list\n");
@@ -41,6 +44,19 @@ int main(void)
     // Prepend
     printf("-> Prepending\n");
     prepend_list(list, 95);
+    print_list(list);
+
+    // Append a bunch
+    printf("-> Appending a bunch of random values\n");
+    for (i = 0; i < 45; i++)
+    {
+        append_list(list, (rand() % 20 + 1));
+    }
+    print_list(list);
+
+    // Append
+    printf("-> Appending\n");
+    append_list(list, 95);
     print_list(list);
 
     // List length
