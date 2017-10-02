@@ -23,3 +23,4 @@ By default, the list holds one element of signed integer data.
 **Planned Operations for Future Release**
 
 - Inserting element at arbitrary point
+- Adding a 'length' element to the Node struct 
