@@ -7,60 +7,67 @@ int main(void)
 {
 
     List *list = NULL;
-    int len;
+    int len, count;
 
     // Test non-existent list
     printf("-> Testing null list\n");
     print_list(list);
-    putchar('\n');
 
     // Create list
     printf("-> Creating list\n");
     list = create_list();
     print_list(list);
-    putchar('\n');
 
     // Append
     printf("-> Appending\n");
     append_list(list, 95);
     print_list(list);
-    putchar('\n');
 
     // Append
     printf("-> Appending\n");
     append_list(list, 2501);
     print_list(list);
-    putchar('\n');
 
     // Prepend
     printf("-> Prepending\n");
     prepend_list(list, 2095);
     print_list(list);
-    putchar('\n');
 
     // Prepend
     printf("-> Prepending\n");
-    prepend_list(list, 8575);
+    prepend_list(list, 95);
     print_list(list);
-    putchar('\n');
 
-    // Count list
+    // Prepend
+    printf("-> Prepending\n");
+    prepend_list(list, 95);
+    print_list(list);
+
+    // List length
     printf("-> About to count the elements in list\n");
-    len = count_list(list);
+    len = list_length(list);
     printf("List is %d nodes long\n", len);
     
+    // Count occurrences of a particular element
+    printf("-> About to count occurrences of '95' in list\n");
+    count = count_value(list, 95);
+    printf("'95' appears %d times\n", count);
+
+    // Delete arbitrary element
+    printf("-> About to delete an arbitrary element\n");
+    delete_any(list, 1);
+    print_list(list);
+
     // Delete head
     printf("-> About to delete head\n");
     delete_head(list);
     print_list(list);
-    putchar('\n');
 
     // Delete tail
     printf("-> About to delete tail\n");
     delete_tail(list);
     print_list(list);
-    putchar('\n');
-
+    
     // Destroy it
     printf("-> About to destroy list\n");
     list = destroy_list(list);
