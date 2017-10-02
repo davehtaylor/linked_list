@@ -23,7 +23,10 @@ void delete_tail(List *list);
 void delete_any(List *list, int index);
 
 // Count the number of elements in list
-int count_list(List *list);
+int list_length(List *list);
+
+// Count occurrences of a particular value
+int count_value(List *list, int key);
 
 // Print the data in each node of the list
 void print_list(List *list); 

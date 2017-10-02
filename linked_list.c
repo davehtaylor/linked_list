@@ -160,6 +160,17 @@ void delete_tail(List *list)
 }
 
 
+// Delete element helper function
+static void delete_next_element(Node *node)
+{
+    Node *temp;
+
+    temp = node->next;
+    free(node);
+    node->next = temp;
+}
+
+
 // Delete arbitrary element from list
 void delete_any(List *list, int index)
 {
@@ -184,15 +195,13 @@ void delete_any(List *list, int index)
         for (i = 1; i < index - 1; i++)
            cursor = cursor->next; 
 
-        temp = cursor->next->next;
-        free(cursor->next);
-        cursor->next = temp;
+        delete_next_element(cursor->next);
     }
 }
 
 
 // Count the number of elements in the list
-int count_list(List *list)
+int list_length(List *list)
 {
     int i, count;
     Node *cursor;
@@ -207,6 +216,11 @@ int count_list(List *list)
     {
         return 0;
     }
+    // Check if only one element
+    else if (list->head == list->tail)
+    {
+        return 1;
+    }
     else 
     {
         cursor = list->head;
@@ -217,6 +231,34 @@ int count_list(List *list)
 
         return count;
     }
+}
+
+
+// Count occurrences of a particular value
+int count_value(List *list, int key)
+{
+    int count = 0;
+    Node *cursor;
+
+    // Make sure list is initialized
+    if (list == NULL) 
+    {
+        return 0;
+    }
+    // Make sure the list isn't empty
+    else if (list->head == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+       for (cursor = list->head; cursor != NULL; cursor = cursor->next)
+          if (cursor->data == key)
+             count++; 
+
+        return count;
+    }
+
 }
 
 
@@ -238,12 +280,16 @@ void print_list(List *list)
     // See if there is only one element in the list
     else if (list->head == list->tail)
     {
-        printf("%d", list->head->data);
+        printf("%d\n", list->head->data);
     }
     else 
     {
         for (cursor = list->head; cursor != NULL; cursor = cursor->next)
-            printf("%d ", cursor->data);
+            // Print trailing space if more elements, new line if not
+            if (cursor->next == NULL)
+                printf("%d\n", cursor->data);
+            else
+                printf("%d ", cursor->data);
     }
 }
 
