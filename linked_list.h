@@ -19,6 +19,9 @@ void delete_head(List *list);
 // Delete last node from list
 void delete_tail(List *list); 
 
+// Delete arbitrary element from list
+void delete_any(List *list, int index);
+
 // Count the number of elements in list
 int count_list(List *list);
 

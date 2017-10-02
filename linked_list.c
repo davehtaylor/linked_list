@@ -111,8 +111,8 @@ void delete_head(List *list)
 {
     Node *first;
     
-    // Make sure the list isn't empty
-    if (list->head == NULL) 
+    // Make sure list exists, and that it's not empty
+    if (list == NULL || list->head == NULL)
     {
         fprintf(stderr, "delete_head has nothing to do");
     }
@@ -136,12 +136,11 @@ void delete_tail(List *list)
 {
     Node *cursor;
 
-    // Make sure list isn't empty
-    if (list->head == NULL) 
+    // Make sure list exists, and that it's not empty
+    if (list == NULL || list->head == NULL)
     {
         fprintf(stderr, "delete_tail has nothing to do");
     }
-
     // See if tail is the only node in the list
     else if (list->head == list->tail)
     {
@@ -157,6 +156,37 @@ void delete_tail(List *list)
         free(list->tail);
         list->tail = cursor;
         list->tail->next = NULL;
+    }
+}
+
+
+// Delete arbitrary element from list
+void delete_any(List *list, int index)
+{
+    int i;
+    Node *cursor, *temp;
+
+    // Make sure list exists, and that it's not empty
+    if (list == NULL || list->head == NULL)
+    {
+        fprintf(stderr, "delete_element has nothing to do");
+    }
+    // See if we're deleting the head, or if there is only one element in list
+    else if (index == 1 || list->head == list->tail)
+    {
+        delete_head(list);
+    }
+    else
+    {
+        cursor = list->head;
+
+        // Go to the element before the one we're going to delete
+        for (i = 1; i < index - 1; i++)
+           cursor = cursor->next; 
+
+        temp = cursor->next->next;
+        free(cursor->next);
+        cursor->next = temp;
     }
 }
 

@@ -13,13 +13,13 @@ By default, the list holds one element of signed integer data.
 - Prepending elements
 - Deleting the first node
 - Deleting the last node
+- Deleting arbitrary elements
 - Counting the number of elements in the list
 - Printing all elements in the list
 - Destroying the list
 
 **Planned Operations for Future Release**
 
-- Deleting arbitrary elements
 - Counting occurrences of a specific value
 - Deleting all occurrences of a specific value
 - Inserting element at arbitrary point
