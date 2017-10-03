@@ -20,7 +20,9 @@ By default, the list holds one element of signed integer data.
 - Deleting all occurrences of a specific value
 - Destroying the list
 
-**Planned Operations for Future Release**
+**Planned Features for Future Release**
 
 - Inserting element at arbitrary point
-- Adding a 'length' element to the Node struct 
+- Swap two elements
+- Reverse list
+- Adding a 'length' element to the List struct 
