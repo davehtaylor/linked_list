@@ -1,6 +1,6 @@
 # Linked Lists
 
-This C module implements singly linked lists, and a variety of operations to perform on them. 
+This C module implements singly-linked lists, and a variety of operations to perform on them. 
 
 **Current Data Constraints**
 
@@ -25,4 +25,5 @@ By default, the list holds one element of signed integer data.
 - Inserting element at arbitrary point
 - Swap two elements
 - Reverse list
-- Adding a 'length' element to the List struct 
+- Making the list doubly-linked
+- Exploring the possibility of making the data type dynamic, giving the user the ability to speicify what data type the list will hold (int, long, float, double, char, char*).

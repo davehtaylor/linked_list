@@ -11,13 +11,13 @@ typedef struct Node
 } Node;
 
 
-/* Structure to hold head and tail pointers. This will be the public interface
- * to the linked list.
- */
+// Structure to hold head and tail pointers. This will be the public interface
+// to the linked list.
 typedef struct List
 {
     Node *head;
     Node *tail;
+    int length;
 } List;
 
 
@@ -31,6 +31,7 @@ List *create_list(void)
     {
         new_list->head = NULL;
         new_list->tail = NULL;
+        new_list->length = 0;
         return new_list;
     }
     else 
@@ -76,11 +77,12 @@ void append_list(List *list, int data)
     if (list->head == NULL) 
     {
         list->head = list->tail = create_node(data);
+        list->length = 1;
     }
     else 
     {
-        list->tail->next = create_node(data);
-        list->tail = list->tail->next;
+        list->tail = list->tail->next = create_node(data);
+        list->length++;
     }
 }
 
@@ -99,12 +101,14 @@ void prepend_list(List *list, int data)
     else if (list->head == NULL) 
     {
         list->head = list->tail = create_node(data);
+        list->length = 1;
     }
     else 
     {
         first = create_node(data);
         first->next = list->head;
         list->head = first;
+        list->length++;
     }
 }
 
@@ -124,12 +128,14 @@ void delete_head(List *list)
     {
         free(list->head);
         list->head = list->tail = NULL;
+        list->length = 0;
     }
     else 
     {
         first = list->head->next;
         free(list->head);
         list->head = first;
+        list->length--;
     }
 }
 
@@ -149,6 +155,7 @@ void delete_tail(List *list)
     {
         free(list->tail); 
         list->head = list->tail = NULL;
+        list->length = 0;
     }
     else 
     {
@@ -159,6 +166,7 @@ void delete_tail(List *list)
         free(list->tail);
         list->tail = cursor;
         list->tail->next = NULL;
+        list->length--;
     }
 }
 
@@ -214,6 +222,7 @@ void delete_index(List *list, int index)
            cursor = cursor->next; 
 
         delete_next_element(list, cursor);
+        list->length--;
     }
 }
 
@@ -244,6 +253,7 @@ void delete_all_value(List *list, int key)
                 delete_next_element(list, cursor);
 
             cursor = cursor->next;
+            list->length--;
         }
         while (cursor != list->tail);
     }
@@ -253,34 +263,11 @@ void delete_all_value(List *list, int key)
 // Count the number of elements in the list
 int list_length(List *list)
 {
-    int i, count;
-    Node *cursor;
-
-    // Make sure list exists 
-    if (list == NULL)
-    {
+    // Make sure list exists, or if it's empty 
+    if (list == NULL || list->head == NULL)
        return 0; 
-    }
-    // Check to see if list is empty
-    else if (list->head == NULL) 
-    {
-        return 0;
-    }
-    // Check if only one element
-    else if (list->head == list->tail)
-    {
-        return 1;
-    }
-    else 
-    {
-        cursor = list->head;
-        count = 0;
-
-        for (i = 0; cursor != NULL; cursor =  cursor->next)
-            count++; 
-
-        return count;
-    }
+    else
+        return list->length;
 }
 
 
@@ -290,13 +277,8 @@ int count_value(List *list, int key)
     int count = 0;
     Node *cursor;
 
-    // Make sure list is initialized
-    if (list == NULL) 
-    {
-        return 0;
-    }
-    // Make sure the list isn't empty
-    else if (list->head == NULL)
+    // Make sure list exists, or if it's empty 
+    if (list == NULL || list->head == NULL) 
     {
         return 0;
     }
@@ -308,7 +290,6 @@ int count_value(List *list, int key)
 
         return count;
     }
-
 }
 
 

@@ -37,4 +37,4 @@ void print_list(List *list);
 // Destroy a list
 List *destroy_list(List *list); 
 
-#endif
+#endif  // LINKED_LIST_H
