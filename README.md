@@ -1,6 +1,6 @@
 # Linked Lists
 
-This C module implements singly-linked lists, and a variety of operations to perform on them. 
+This C module implements doubly-linked lists, and a variety of operations to perform on them. 
 
 **Current Data Constraints**
 
@@ -14,7 +14,7 @@ By default, the list holds one element of signed integer data.
 - Counting the number of elements in the list
 - Counting occurrences of a specific value
 - Printing specific element in the list
-- Printing all elements in the list
+- Printing all elements in the list forward or in reverse
 - Deleting the first node
 - Deleting the last node
 - Deleting arbitrary elements
@@ -27,5 +27,4 @@ By default, the list holds one element of signed integer data.
 - Swap two elements
 - Reverse list
 - Concatenate two lists
-- Make the list doubly-linked
 - Exploring the possibility of making the data type dynamic, giving the user the ability to speicify what data type the list will hold (int, long, float, double, char, char*).

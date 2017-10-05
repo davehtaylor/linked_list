@@ -37,6 +37,9 @@ void print_index(List *list, int index);
 // Print the entire list
 void print_list(List *list); 
 
+// Print the entire list in reverse order
+void print_list_reverse(List *list); 
+
 // Destroy a list
 List *destroy_list(List *list); 
 

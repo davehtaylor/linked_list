@@ -3,16 +3,17 @@
 #include "linked_list.h"    // our linked list header file
 
 
-// Structure for our linked list, with one element of int data
+// Structure for our doubly-linked list, with one element of int data
 typedef struct Node 
 {
     int data;
+    struct Node *prev;
     struct Node *next;
 } Node;
 
 
-// Structure to hold head and tail pointers. This will be the public interface
-// to the linked list.
+// Structure to hold head and tail pointers, as well as length of list. 
+// This will be the public interface to the linked list.
 typedef struct List
 {
     Node *head;
@@ -51,6 +52,7 @@ static Node *create_node(int data)
     if (new_node != NULL) 
     {
         new_node->data = data;
+        new_node->prev = NULL;
         new_node->next = NULL;
         return new_node;
     }
@@ -81,7 +83,9 @@ void append_list(List *list, int data)
     }
     else 
     {
-        list->tail = list->tail->next = create_node(data);
+        list->tail->next = create_node(data);
+        list->tail->next->prev = list->tail;
+        list->tail = list->tail->next;
         list->length++;
     }
 }
@@ -111,6 +115,37 @@ void prepend_list(List *list, int data)
         list->length++;
     }
 }
+
+
+// Delete element helper function
+static void delete_next_element(List* list, Node *node)
+{
+    Node *temp1, *temp2;
+
+    // Make sure we're not trying to delete past the end
+    if (node->next == NULL)
+    {
+        fprintf(stderr, "delete_element has nothing to do\n");
+    }
+    // See if the current element will become the new tail 
+    else if (node->next == list->tail)
+    {
+        free(node->next);
+        node->next = NULL;
+        list->tail = node;
+    }
+    else
+    {
+        // Need to make sure we grab the prev as well as the next
+        temp1 = node->next->next;
+        temp2 = node->next->next->prev;
+
+        free(node->next);
+        node->next = temp1;
+        node->next->prev = node;
+    }
+}
+
 
 
 // Delete head from list
@@ -171,32 +206,6 @@ void delete_tail(List *list)
 }
 
 
-// Delete element helper function
-static void delete_next_element(List* list, Node *node)
-{
-    Node *temp;
-
-    // Make sure we're not trying to delete past the end
-    if (node->next == NULL)
-    {
-        fprintf(stderr, "delete_element has nothing to do\n");
-    }
-    // See if the current element will become the new tail 
-    else if (node->next == list->tail)
-    {
-        free(node->next);
-        node->next = NULL;
-        list->tail = node;
-    }
-    else
-    {
-        temp = node->next->next;
-        free(node->next);
-        node->next = temp;
-    }
-}
-
-
 // Delete arbitrary element from list
 void delete_index(List *list, int index)
 {
@@ -209,7 +218,7 @@ void delete_index(List *list, int index)
         fprintf(stderr, "delete_element has nothing to do\n");
     }
     // See if we're deleting the head, or if there is only one element in list
-    else if (index == 1 || list->head == list->tail)
+    else if (index == 0 || list->head == list->tail)
     {
         delete_head(list);
     }
@@ -218,7 +227,7 @@ void delete_index(List *list, int index)
         cursor = list->head;
 
         // Go to the element before the one we're going to delete
-        for (i = 0; i < index - 1; i++)
+        for (i = 1; i < (index - 1); i++)
            cursor = cursor->next; 
 
         delete_next_element(list, cursor);
@@ -361,6 +370,37 @@ void print_list(List *list)
     }
 }
 
+
+// Print the data in each node of the list in reverse order
+void print_list_reverse(List *list) 
+{
+    Node* cursor;
+
+    // Make sure list is initialized
+    if (list == NULL) 
+    {
+        printf("<list does not exist>\n"); 
+    }
+    // Make sure the list isn't empty
+    else if (list->head == NULL)
+    {
+        printf("<empty list>\n");
+    }
+    // See if there is only one element in the list
+    else if (list->head == list->tail)
+    {
+        printf("%d\n", list->head->data);
+    }
+    else 
+    {
+        for (cursor = list->tail; cursor != NULL; cursor = cursor->prev)
+            // Print trailing space if more elements, new line if not
+            if (cursor->prev == NULL)
+                printf("%d\n", cursor->data);
+            else
+                printf("%d ", cursor->data);
+    }
+}
 
 // Destroy a list
 List *destroy_list(List *list) 
