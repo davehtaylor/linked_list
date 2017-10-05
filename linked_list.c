@@ -280,6 +280,25 @@ int list_length(List *list)
 }
 
 
+// Concatenate two lists
+List *list_cat(List *list1, List *list2)
+{
+    // Make a new list
+    List *new_joined_list = NULL;
+    new_joined_list = create_list();
+
+    // Get the info from the first list
+    new_joined_list->head = list1->head;
+    new_joined_list->tail = list1->tail;
+
+    // Now connecting them
+    new_joined_list->tail->next = list2->head;
+    new_joined_list->tail = list2->tail;
+
+    return new_joined_list;
+}
+
+
 // Count occurrences of a particular value
 int count_value(List *list, int key)
 {

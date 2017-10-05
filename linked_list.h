@@ -28,6 +28,9 @@ void delete_all_value(List *list, int key);
 // Count the number of elements in list
 int list_length(List *list);
 
+// Concatenate two lists
+List *list_cat(List *list1, List *list2);
+
 // Count occurrences of a particular value
 int count_value(List *list, int key);
 

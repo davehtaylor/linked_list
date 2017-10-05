@@ -8,6 +8,9 @@
 int main(void)
 {
 
+    List *test_list1 = NULL; 
+    List *test_list2 = NULL;
+    List *test_joined = NULL; 
     List *list = NULL;
     int i, len, count;
     srand(time(NULL));
@@ -17,9 +20,14 @@ int main(void)
     print_list(list);
 
     // Create list
+    test_list1 = create_list();
+
+    // Create list
+    test_list2 = create_list();
+
+    // Create list
     printf("\n-> Creating list\n");
     list = create_list();
-    print_list(list);
 
     // Append
     printf("\n-> Appending\n");
@@ -107,6 +115,23 @@ int main(void)
     list = destroy_list(list);
     if (list == NULL)
         printf("\n-> List destroyed\n");
+
+    // Test joining two lists
+    printf("\n-> Making two new lists\n");
+    for (i = 0; i < 10; i++)
+    {
+        append_list(test_list1, (rand() % 20 + 1));
+    }   
+    for (i = 0; i < 10; i++)
+    {
+        append_list(test_list2, (rand() % 20 + 1));
+    }   
+    printf("\n-> Here's the two new lists:\n");
+    print_list(test_list1);
+    print_list(test_list2);
+    printf("\n-> Here they are joined:\n");
+    test_joined = list_cat(test_list1, test_list2);
+    print_list(test_joined);
 
     return 0;
 }
