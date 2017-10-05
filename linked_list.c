@@ -117,6 +117,22 @@ void prepend_list(List *list, int data)
 }
 
 
+// Destroy nodes helper function
+static void destroy_nodes(Node *head)
+{
+    Node *cursor = head, *temp;
+
+    while (cursor != NULL) 
+    {
+        // Save address of next node after cursor then free the cursor 
+        temp = cursor->next;
+        free(cursor);
+        // Move the cursor to the address of the next node stored in temp
+        cursor = temp;
+    }
+}
+
+
 // Delete element helper function
 static void delete_next_element(List* list, Node *node)
 {
@@ -281,21 +297,30 @@ int list_length(List *list)
 
 
 // Concatenate two lists
-List *list_cat(List *list1, List *list2)
+List *list_cat(List* dest, List *list1, List *list2)
 {
-    // Make a new list
-    List *new_joined_list = NULL;
-    new_joined_list = create_list();
+    // See if the destination exists
+    if (dest == NULL)
+    {
+        dest = create_list();
+    }
 
+    // See if there is something in the destination list. If so,
+    // we'll destroy it so we don't leak memory
+    if (dest->head != NULL)
+    {
+        destroy_nodes(dest->head); 
+    }
+    
     // Get the info from the first list
-    new_joined_list->head = list1->head;
-    new_joined_list->tail = list1->tail;
+    dest->head = list1->head;
+    dest->tail = list1->tail;
 
     // Now connecting them
-    new_joined_list->tail->next = list2->head;
-    new_joined_list->tail = list2->tail;
+    dest->tail->next = list2->head;
+    dest->tail = list2->tail;
 
-    return new_joined_list;
+    return dest;
 }
 
 
@@ -421,17 +446,16 @@ void print_list_reverse(List *list)
     }
 }
 
+
 // Destroy a list
 List *destroy_list(List *list) 
 {
-    Node *cursor, *temp;
-    
-    // Make sure the list isn't empty already
+    // Make sure the list exists
     if (list == NULL)
     {
         return NULL;
     }
-    // Make sure the pointers in the list aren't empty
+    // See if the list is empty
     else if (list->head == NULL)
     {
         free(list);
@@ -439,16 +463,7 @@ List *destroy_list(List *list)
     }
     else 
     {
-        cursor = list->head;
-
-        while (cursor != NULL) 
-        {
-            // Save address of next node after cursor then free the cursor 
-            temp = cursor->next;
-            free(cursor);
-            // Move the cursor to the address of the next node stored in temp
-            cursor = temp;
-        }
+        destroy_nodes(list->head);
 
         // Free the whole struct
         free(list);

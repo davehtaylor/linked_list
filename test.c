@@ -26,6 +26,9 @@ int main(void)
     test_list2 = create_list();
 
     // Create list
+    test_joined = create_list();
+
+    // Create list
     printf("\n-> Creating list\n");
     list = create_list();
 
@@ -130,7 +133,7 @@ int main(void)
     print_list(test_list1);
     print_list(test_list2);
     printf("\n-> Here they are joined:\n");
-    test_joined = list_cat(test_list1, test_list2);
+    test_joined = list_cat(test_joined, test_list1, test_list2);
     print_list(test_joined);
 
     return 0;
