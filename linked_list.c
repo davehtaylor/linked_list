@@ -293,6 +293,43 @@ int count_value(List *list, int key)
 }
 
 
+// Print specific element, indexed from 0
+void print_index(List *list, int index)
+{
+    Node* cursor;
+    int i;
+
+    // Make sure list is initialized
+    if (list == NULL) 
+    {
+        printf("<list does not exist>\n"); 
+    }
+    // Make sure the list isn't empty
+    else if (list->head == NULL)
+    {
+        printf("<empty list>\n");
+    }
+    // See if the user is asking for an invalid index
+    else if (index < 0 || index > list->length)
+    {
+        printf("<index out of bounds>\n");
+    }
+    // See if there is only one element in the list
+    else if (index == 0 || list->head == list->tail)
+    {
+        printf("%d\n", list->head->data);
+    }
+    else 
+    {
+        // Go to the index, then print it
+        for (i = 0, cursor = list->head; i < (index - 1); i++)
+            cursor = cursor->next;
+
+        printf("%d\n", cursor->data);
+    }
+}
+
+
 // Print the data in each node of the list
 void print_list(List *list) 
 {

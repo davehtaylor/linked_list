@@ -31,7 +31,10 @@ int list_length(List *list);
 // Count occurrences of a particular value
 int count_value(List *list, int key);
 
-// Print the data in each node of the list
+// Print specific element, indexed from 0 
+void print_index(List *list, int index);
+
+// Print the entire list
 void print_list(List *list); 
 
 // Destroy a list

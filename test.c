@@ -64,6 +64,10 @@ int main(void)
     append_list(list, 107);
     print_list(list);
 
+    // Print specific element
+    printf("-> About to print element 5\n");
+    print_index(list, 5);
+
     // List length
     printf("-> About to count the elements in list\n");
     len = list_length(list);
