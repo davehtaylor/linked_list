@@ -13,23 +13,14 @@ void append_list(List *list, int data);
 // Prepend an element
 void prepend_list(List *list, int data);
 
-// Delete head from list
-void delete_head(List *list); 
-
-// Delete last node from list
-void delete_tail(List *list); 
-
-// Delete arbitrary element from list
-void delete_index(List *list, int index);
-
-// Delete all occurrences of a particular from list
-void delete_all_value(List *list, int key);
-
 // Count the number of elements in list
 int list_length(List *list);
 
 // Concatenate two lists
 List *list_cat(List *dest, List *list1, List *list2);
+
+// Reverse list
+void reverse_list(List *list);
 
 // Count occurrences of a particular value
 int count_value(List *list, int key);
@@ -42,6 +33,18 @@ void print_list(List *list);
 
 // Print the entire list in reverse order
 void print_list_reverse(List *list); 
+
+// Delete head from list
+void delete_head(List *list); 
+
+// Delete last node from list
+void delete_tail(List *list); 
+
+// Delete arbitrary element from list
+void delete_index(List *list, int index);
+
+// Delete all occurrences of a particular from list
+void delete_all_value(List *list, int key);
 
 // Destroy a list
 List *destroy_list(List *list); 

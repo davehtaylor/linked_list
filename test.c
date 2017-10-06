@@ -7,7 +7,6 @@
 
 int main(void)
 {
-
     List *test_list1 = NULL; 
     List *test_list2 = NULL;
     List *test_joined = NULL; 
@@ -54,7 +53,7 @@ int main(void)
 
     // Prepend
     printf("\n-> Prepending\n");
-    prepend_list(list, 95);
+    prepend_list(list, 867530);
     print_list(list);
 
     // Append a bunch
@@ -82,6 +81,11 @@ int main(void)
     // Print list in reverse
     printf("\n-> Attempting to print list in reverse order\n");
     print_list_reverse(list);
+
+    // Actually reverse the list
+    printf("\n-> About to actually reverse the list\n");
+    reverse_list(list);
+    print_list(list);
 
     // List length
     printf("\n-> About to count the elements in list\n");

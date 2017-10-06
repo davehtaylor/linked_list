@@ -11,11 +11,12 @@ By default, the list holds one element of signed integer data.
 - Creating the list
 - Appending elements
 - Prepending elements
-- Counting the number of elements in the list
+- Returning the list length
+- Concatenating two lists
+- Reversing the list
 - Counting occurrences of a specific value
 - Printing specific element in the list
 - Printing all elements in the list forward or in reverse
-- Concatenate two lists
 - Deleting the first node
 - Deleting the last node
 - Deleting arbitrary elements
@@ -26,5 +27,4 @@ By default, the list holds one element of signed integer data.
 
 - Insert element at arbitrary point
 - Swap two elements
-- Reverse list
 - Exploring the possibility of making the data type dynamic, giving the user the ability to speicify what data type the list will hold (int, long, float, double, char, char*).
