@@ -99,6 +99,11 @@ int main(void)
     list_insert(list, 0, 441);
     print_list(list);
 
+    // Swap
+    printf("\n-> About to swap indeces 0 and 5\n");
+    list_swap(list, 0, 5);
+    print_list(list);
+
     // Print specific element
     printf("\n-> About to print element 5\n");
     print_index(list, 5);

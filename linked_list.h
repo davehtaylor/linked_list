@@ -16,6 +16,9 @@ void prepend_list(List *list, int data);
 // Insert at arbitrary point
 void list_insert(List *list, int index, int data);
 
+// Swap two elements
+void list_swap(List *list, int index1, int index2);
+
 // Count the number of elements in list
 int list_length(List *list);
 

@@ -68,6 +68,19 @@ static void delete_next_element(List* list, Node *node)
 }
 
 
+// Min of two helper function
+static int min(int i, int j)
+{
+    return (i < j) ? i : j;
+}
+
+
+// Max of two helper function
+static int max(int i, int j)
+{
+    return (i > j) ? i : j;
+}
+
 // Create node helper function 
 static Node *create_node(int data) 
 {
@@ -209,6 +222,31 @@ void list_insert(List *list, int index, int data)
         list->length++;
     }
 
+}
+
+
+// Swap two elements
+void list_swap(List* list, int index1, int index2)
+{
+    // Figure out which comes first in the list, to simplify which way to walk
+    // the list when finding the next index. This way, it doesn't matter which
+    // index the user passes to the function first
+    int i, temp, lo = min(index1, index2), hi = max(index1, index2);
+    Node *cursor1, *cursor2;
+
+    // Go to first element
+    for (i = 0, cursor1 = list->head; i < lo; i++)
+        cursor1 = cursor1->next;
+
+    // Go to second element, starting from the first element. No need to walk
+    // whole list again
+    for (i = lo, cursor2 = cursor1; i < hi; i++)
+        cursor2 = cursor2->next;
+
+    // Just swap the data 
+    temp = cursor1->data;
+    cursor1->data = cursor2->data;
+    cursor2->data = temp;
 }
 
 
