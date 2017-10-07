@@ -13,6 +13,9 @@ void append_list(List *list, int data);
 // Prepend an element
 void prepend_list(List *list, int data);
 
+// Insert at arbitrary point
+void list_insert(List *list, int index, int data);
+
 // Count the number of elements in list
 int list_length(List *list);
 

@@ -166,6 +166,51 @@ void prepend_list(List *list, int data)
 }
 
 
+// Insert at arbitrary point
+void list_insert(List *list, int index, int data)
+{   
+    int i;
+    Node *cursor, *temp;
+
+    // Make sure list exists, that it's not empty, or if we're trying to
+    // otherwise insert at the head
+    if (list == NULL || list->head == NULL || index == 0 || 
+        list->head == list->tail)
+    {
+        prepend_list(list, data);
+    }
+
+    // See if we're trying to insert out of bounds
+    if (index < 0 || index >= list->length)
+    {
+        fprintf(stderr, "insert_list cannot insert beyond list bounds");
+    }
+    // See if we're inserting at the tail
+    else if (index == (list->length - 1))
+    {
+        append_list(list, data);
+    }
+    else
+    {
+        cursor = list->head;
+
+        // Go to the element before the index we're inserting at
+        for (i = 0; i < (index - 1); i++)
+           cursor = cursor->next; 
+
+        // Save the next element, create the new node after cursor, and link
+        // them all back up
+        temp = cursor->next;
+        cursor->next = create_node(data);
+        temp->prev = cursor->next;
+        cursor->next->next = temp;
+        cursor->next->prev = cursor;
+        list->length++;
+    }
+
+}
+
+
 // Count the number of elements in the list
 int list_length(List *list)
 {
@@ -222,8 +267,6 @@ void reverse_list(List *list)
     temp = list->head;
     list->head = list->tail;
     list->tail = temp;
-
-    printf("Head: %d, tail: %d\n", list->head->data, list->tail->data);
 }
 
 
@@ -340,7 +383,7 @@ void print_list_reverse(List *list)
     {
         for (cursor = list->tail; cursor != NULL; cursor = cursor->prev)
             // Print trailing space if more elements, new line if not
-            printf("%d%c", cursor->data, (cursor->next == NULL) ? '\n' : ' ');
+            printf("%d%c", cursor->data, (cursor->prev == NULL) ? '\n' : ' ');
     }
 }
 
@@ -428,7 +471,7 @@ void delete_index(List *list, int index)
         cursor = list->head;
 
         // Go to the element before the one we're going to delete
-        for (i = 1; i < (index - 1); i++)
+        for (i = 0; i < (index - 1); i++)
            cursor = cursor->next; 
 
         delete_next_element(list, cursor);

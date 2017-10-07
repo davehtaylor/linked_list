@@ -74,6 +74,11 @@ int main(void)
     append_list(list, 107);
     print_list(list);
 
+    // Insert
+    printf("\n-> About to insert 71 at index 2\n");
+    list_insert(list, 2, 71);
+    print_list(list);
+
     // Print specific element
     printf("\n-> About to print element 5\n");
     print_index(list, 5);

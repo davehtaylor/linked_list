@@ -11,6 +11,7 @@ By default, the list holds one element of signed integer data.
 - Creating the list
 - Appending elements
 - Prepending elements
+- Insert element at arbitrary point
 - Returning the list length
 - Concatenating two lists
 - Reversing the list
@@ -25,6 +26,5 @@ By default, the list holds one element of signed integer data.
 
 **Planned Features for Future Release**
 
-- Insert element at arbitrary point
 - Swap two elements
 - Exploring the possibility of making the data type dynamic, giving the user the ability to speicify what data type the list will hold (int, long, float, double, char, char*).
