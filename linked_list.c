@@ -68,7 +68,7 @@ static void delete_next_element(List* list, Node *node)
 }
 
 
-// Create a node
+// Create node helper function 
 static Node *create_node(int data) 
 {
     Node *new_node = malloc(sizeof(Node));
@@ -129,6 +129,8 @@ void append_list(List *list, int data)
     }
     else 
     {
+        // Go to the tail and create a new node afterward, then link
+        // the all up
         list->tail->next = create_node(data);
         list->tail->next->prev = list->tail;
         list->tail = list->tail->next;
@@ -179,9 +181,8 @@ void list_insert(List *list, int index, int data)
     {
         prepend_list(list, data);
     }
-
     // See if we're trying to insert out of bounds
-    if (index < 0 || index >= list->length)
+    else if (index < 0 || index >= list->length)
     {
         fprintf(stderr, "insert_list cannot insert beyond list bounds");
     }
@@ -227,22 +228,18 @@ List *list_cat(List* dest, List *list1, List *list2)
 {
     // See if the destination exists
     if (dest == NULL)
-    {
         dest = create_list();
-    }
 
     // See if there is something in the destination list. If so,
     // we'll destroy it so we don't leak memory
     if (dest->head != NULL)
-    {
         destroy_nodes(dest->head); 
-    }
     
     // Get the info from the first list
     dest->head = list1->head;
     dest->tail = list1->tail;
 
-    // Now connecting them
+    // Now connect them
     dest->tail->next = list2->head;
     dest->tail = list2->tail;
 
@@ -310,7 +307,7 @@ void print_index(List *list, int index)
         printf("<empty list>\n");
     }
     // See if the user is asking for an invalid index
-    else if (index < 0 || index > list->length)
+    else if (index < 0 || index >= list->length)
     {
         printf("<index out of bounds>\n");
     }
@@ -438,8 +435,7 @@ void delete_tail(List *list)
     else 
     {
         // Go to the next to last node
-        for (cursor = list->head; cursor->next != list->tail; cursor = cursor->next)
-            ;
+        cursor = list->tail->prev;
         
         // Free the tail, set the tail to the current node, set next to NULL
         free(list->tail);

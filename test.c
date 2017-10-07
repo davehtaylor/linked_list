@@ -35,6 +35,16 @@ int main(void)
     printf("\n-> Appending\n");
     append_list(list, 95);
     print_list(list);
+    
+    // Test delete head with only one element
+    printf("\n-> Deleting head\n");
+    delete_head(list);
+    print_list(list);
+    
+    // List length
+    printf("\n-> About to count the elements in list\n");
+    len = list_length(list);
+    printf("List is %d nodes long\n", len);
 
     // Append
     printf("\n-> Appending\n");
@@ -50,6 +60,11 @@ int main(void)
     printf("\n-> Prepending\n");
     prepend_list(list, 95);
     print_list(list);
+
+    // List length
+    printf("\n-> About to count the elements in list\n");
+    len = list_length(list);
+    printf("List is %d nodes long\n", len);
 
     // Prepend
     printf("\n-> Prepending\n");
@@ -77,6 +92,11 @@ int main(void)
     // Insert
     printf("\n-> About to insert 71 at index 2\n");
     list_insert(list, 2, 71);
+    print_list(list);
+
+    // Insert
+    printf("\n-> About to insert 441 at index 0\n");
+    list_insert(list, 0, 441);
     print_list(list);
 
     // Print specific element
