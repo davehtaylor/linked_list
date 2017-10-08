@@ -9,6 +9,7 @@ int main(void)
 {
     List *test_list1 = NULL; 
     List *test_list2 = NULL;
+    List *test_list3 = NULL;
     List *test_joined = NULL; 
     List *list = NULL;
     int i, len, count;
@@ -23,6 +24,9 @@ int main(void)
 
     // Create list
     test_list2 = create_list();
+
+    // Create list
+    test_list3 = create_list();
 
     // Create list
     test_joined = create_list();
@@ -105,7 +109,7 @@ int main(void)
     print_list(list);
 
     // Print specific element
-    printf("\n-> About to print element 5\n");
+    printf("\n-> About to print index 5\n");
     print_index(list, 5);
 
     // Print list in reverse
@@ -127,25 +131,55 @@ int main(void)
     count = count_value(list, 95);
     printf("'95' appears %d times\n", count);
 
-    // Delete occurences of a particular element
-    printf("\n-> About to delete all occurences of '95' in list\n");
-    delete_all_value(list, 95);
+    // Sort list
+    printf("\n-> About to sort list\n");
+    list_sort(list);
     print_list(list);
+
+    // List length
+    printf("\n-> About to count the elements in list\n");
+    len = list_length(list);
+    printf("List is %d nodes long\n", len);
+
+    // Delete occurences of a particular element
+    printf("\n-> About to delete all occurences of '6' in list\n");
+    delete_all_value(list, 6);
+    print_list(list);
+
+    // List length
+    printf("\n-> About to count the elements in list\n");
+    len = list_length(list);
+    printf("List is %d nodes long\n", len);
 
     // Delete arbitrary element
     printf("\n-> About to delete index 1\n");
     delete_index(list, 1);
     print_list(list);
 
+    // List length
+    printf("\n-> About to count the elements in list\n");
+    len = list_length(list);
+    printf("List is %d nodes long\n", len);
+
     // Delete head
     printf("\n-> About to delete head\n");
     delete_head(list);
     print_list(list);
 
+    // List length
+    printf("\n-> About to count the elements in list\n");
+    len = list_length(list);
+    printf("List is %d nodes long\n", len);
+
     // Delete tail
     printf("\n-> About to delete tail\n");
     delete_tail(list);
     print_list(list);
+    
+    // List length
+    printf("\n-> About to count the elements in list\n");
+    len = list_length(list);
+    printf("List is %d nodes long\n", len);
     
     // Destroy it
     printf("\n-> About to destroy list\n");
@@ -169,6 +203,19 @@ int main(void)
     printf("\n-> Here they are joined:\n");
     test_joined = list_cat(test_joined, test_list1, test_list2);
     print_list(test_joined);
+
+    // Making a new list to test deleting a uniform list
+    printf("\n-> Making a new list of all 7\n");
+    for (i = 0; i < 10; i++)
+    {
+        append_list(test_list3, 7);
+    }
+    print_list(test_list3);
+
+    // Delete all values
+    printf("\n-> About to delete all 7\n");
+    delete_all_value(test_list3, 7);
+    print_list(test_list3);
 
     return 0;
 }

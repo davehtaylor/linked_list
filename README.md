@@ -2,9 +2,9 @@
 
 This C module implements doubly-linked lists, and a variety of operations to perform on them. 
 
-**Current Data Constraints**
+**Data Types**
 
-By default, the list holds one element of signed integer data. 
+Each node in the list holds one element of signed integer data. 
 
 **Current Operations**
 
@@ -17,6 +17,7 @@ By default, the list holds one element of signed integer data.
 - Concatenating two lists
 - Reversing the list
 - Counting occurrences of a specific value
+- Sorting the list
 - Printing specific element in the list
 - Printing all elements in the list forward or in reverse
 - Deleting the first node
@@ -57,6 +58,9 @@ By default, the list holds one element of signed integer data.
 
 - count_value(list, key)
 >Returns the number of times the key appears in the list, of type int. Arguments taken: the list in quesiton of type List\*, and the search key of type int. 
+
+- list_sort(list)
+>No return. Arguments taken: the list in question of type List\*. 
 
 - print_index(list, index)
 >No return. Arguments taken: the list in question of type List\*, and the index to print of type int.

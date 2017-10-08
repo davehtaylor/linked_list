@@ -31,6 +31,9 @@ void reverse_list(List *list);
 // Count occurrences of a particular value
 int count_value(List *list, int key);
 
+// Sort the list in non-decreasing order
+void list_sort(List* list);
+
 // Print specific element, indexed from 0 
 void print_index(List *list, int index);
 

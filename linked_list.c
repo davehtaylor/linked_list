@@ -59,11 +59,10 @@ static void delete_next_element(List* list, Node *node)
     {
         // Need to make sure we grab the prev as well as the next
         temp1 = node->next->next;
-        temp2 = node->next->next->prev;
+        temp1->prev = node;
 
         free(node->next);
         node->next = temp1;
-        node->next->prev = node;
     }
 }
 
@@ -328,6 +327,31 @@ int count_value(List *list, int key)
 }
 
 
+// Sort the list in non-decreasing order (Bubble Sort)
+void list_sort(List *list)
+{
+    int temp, did_swap = 1;
+    Node *cursor;
+
+    while (did_swap)
+    {
+        did_swap = 0;
+
+        for (cursor = list->head; cursor != list->tail; cursor = cursor->next)
+        {
+            if (cursor->data > cursor->next->data)
+            {
+                temp = cursor->data;
+                cursor->data = cursor->next->data;
+                cursor->next->data = temp;
+
+                did_swap = 1;
+            }
+        }
+    }
+}
+
+
 // Print specific element, indexed from 0
 void print_index(List *list, int index)
 {
@@ -357,7 +381,7 @@ void print_index(List *list, int index)
     else 
     {
         // Go to the index, then print it
-        for (i = 0, cursor = list->head; i < (index - 1); i++)
+        for (i = 0, cursor = list->head; i < index; i++)
             cursor = cursor->next;
 
         printf("%d\n", cursor->data);
@@ -526,23 +550,30 @@ void delete_all_value(List *list, int key)
     }
     else
     {
-        // First check if the head contains the value, keep going if necessary
+        // First check if the head contains the value and delete it if so. 
+        // Keep deleting if the value is repeated afterward. If we end up
+        // deleting the whole list (e.g a list of the same value), just return
         if (list->head->data == key)
             while (list->head->data == key)
+            {
                 delete_head(list);
+                if (list->head == NULL)
+                    return;
+            }
         
-        cursor = list->head;
-
-        // We want this code to run at least once before looping
-        do 
+        for (cursor = list->head; cursor != list->tail; cursor = cursor->next)
         {
+            // We need a while loop here in case the same value is
+            // repeated, just like we did with the case of deleting head 
             if (cursor->next->data == key)
-                delete_next_element(list, cursor);
-
-            cursor = cursor->next;
-            list->length--;
+            {
+                while (cursor->next->data == key)
+                {
+                    delete_next_element(list, cursor);
+                    list->length--;
+                }
+            }
         }
-        while (cursor != list->tail);
     }
 }
 
