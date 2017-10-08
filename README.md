@@ -112,7 +112,7 @@ No return. Arguments taken: the list in question of type List\*.
 
 ---
 
-`print\_list\_reverse(list_name)`
+`print_list_reverse(list_name)`
 
 No return. Arguments taken: the list in question of type List\*.
 
@@ -136,7 +136,7 @@ No return. Arguments taken: the list in question of type List\*, and the index t
 
 ---
 
-`delete\_all\_value(list_name, key)`
+`delete_all_value(list_name, key)`
 
 No return. Arguments taken: the list in question of type List\*, and the search key to delete of type int
 
