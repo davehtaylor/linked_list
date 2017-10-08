@@ -7,7 +7,7 @@
 
 int main(void)
 {
-    List *test_list1 = NULL; 
+    List *test_list1 = NULL;
     List *test_list2 = NULL;
     List *test_list3 = NULL;
     List *test_joined = NULL; 
@@ -16,27 +16,19 @@ int main(void)
     srand(time(NULL));
 
     // Test non-existent list
-    printf("-> Testing null list\n");
+    printf("-> Testing list before creation\n");
     print_list(list);
-
-    // Create list
-    test_list1 = create_list();
-
-    // Create list
-    test_list2 = create_list();
-
-    // Create list
-    test_list3 = create_list();
-
-    // Create list
-    test_joined = create_list();
 
     // Create list
     printf("\n-> Creating list\n");
     list = create_list();
+    test_list1 = create_list();
+    test_list2 = create_list();
+    test_list3 = create_list();
+    test_joined = create_list();
 
     // Append
-    printf("\n-> Appending\n");
+    printf("\n-> Appending '95'\n");
     append_list(list, 95);
     print_list(list);
     
@@ -46,33 +38,19 @@ int main(void)
     print_list(list);
     
     // List length
-    printf("\n-> About to count the elements in list\n");
+    printf("\n-> List length\n");
     len = list_length(list);
     printf("List is %d nodes long\n", len);
 
     // Append
-    printf("\n-> Appending\n");
+    printf("\n-> Appending '2501'\n");
     append_list(list, 2501);
     print_list(list);
 
     // Prepend
-    printf("\n-> Prepending\n");
+    printf("\n-> Prepending '2095' and '95'\n");
     prepend_list(list, 2095);
-    print_list(list);
-
-    // Prepend
-    printf("\n-> Prepending\n");
     prepend_list(list, 95);
-    print_list(list);
-
-    // List length
-    printf("\n-> About to count the elements in list\n");
-    len = list_length(list);
-    printf("List is %d nodes long\n", len);
-
-    // Prepend
-    printf("\n-> Prepending\n");
-    prepend_list(list, 867530);
     print_list(list);
 
     // Append a bunch
@@ -83,112 +61,71 @@ int main(void)
     }
     print_list(list);
 
-    // Append
-    printf("\n-> Appending\n");
-    append_list(list, 95);
-    print_list(list);
-
-    // Append
-    printf("\n-> Appending\n");
-    append_list(list, 107);
-    print_list(list);
-
     // Insert
-    printf("\n-> About to insert 71 at index 2\n");
-    list_insert(list, 2, 71);
-    print_list(list);
-
-    // Insert
-    printf("\n-> About to insert 441 at index 0\n");
-    list_insert(list, 0, 441);
+    printf("\n-> Inserting '10' at index 2\n");
+    list_insert(list, 2, 10);
     print_list(list);
 
     // Swap
-    printf("\n-> About to swap indeces 0 and 5\n");
+    printf("\n-> Swapping indeces 0 and 5\n");
     list_swap(list, 0, 5);
     print_list(list);
 
     // Print specific element
-    printf("\n-> About to print index 5\n");
+    printf("\n-> Printing index 5\n");
     print_index(list, 5);
 
     // Print list in reverse
-    printf("\n-> Attempting to print list in reverse order\n");
+    printf("\n-> Printing list in reverse order\n");
     print_list_reverse(list);
 
     // Actually reverse the list
-    printf("\n-> About to actually reverse the list\n");
+    printf("\n-> Reversing the list\n");
     reverse_list(list);
     print_list(list);
 
     // List length
-    printf("\n-> About to count the elements in list\n");
+    printf("\n-> List length\n");
     len = list_length(list);
     printf("List is %d nodes long\n", len);
     
     // Count occurrences of a particular element
-    printf("\n-> About to count occurrences of '95' in list\n");
+    printf("\n-> Counting occurrences of '95' in list\n");
     count = count_value(list, 95);
     printf("'95' appears %d times\n", count);
 
     // Sort list
-    printf("\n-> About to sort list\n");
+    printf("\n-> Sorting list\n");
     list_sort(list);
     print_list(list);
 
-    // List length
-    printf("\n-> About to count the elements in list\n");
-    len = list_length(list);
-    printf("List is %d nodes long\n", len);
-
     // Delete occurences of a particular element
-    printf("\n-> About to delete all occurences of '6' in list\n");
+    printf("\n-> Deleting all occurences of '95' in list\n");
     delete_all_value(list, 6);
     print_list(list);
 
-    // List length
-    printf("\n-> About to count the elements in list\n");
-    len = list_length(list);
-    printf("List is %d nodes long\n", len);
-
     // Delete arbitrary element
-    printf("\n-> About to delete index 1\n");
+    printf("\n-> Deleting index 1\n");
     delete_index(list, 1);
     print_list(list);
 
-    // List length
-    printf("\n-> About to count the elements in list\n");
-    len = list_length(list);
-    printf("List is %d nodes long\n", len);
-
     // Delete head
-    printf("\n-> About to delete head\n");
+    printf("\n-> Deleting head\n");
     delete_head(list);
     print_list(list);
 
-    // List length
-    printf("\n-> About to count the elements in list\n");
-    len = list_length(list);
-    printf("List is %d nodes long\n", len);
-
     // Delete tail
-    printf("\n-> About to delete tail\n");
+    printf("\n-> Deleting tail\n");
     delete_tail(list);
     print_list(list);
     
-    // List length
-    printf("\n-> About to count the elements in list\n");
-    len = list_length(list);
-    printf("List is %d nodes long\n", len);
-    
     // Destroy it
-    printf("\n-> About to destroy list\n");
+    printf("\n-> Destroying list\n");
     list = destroy_list(list);
-    if (list == NULL)
-        printf("\n-> List destroyed\n");
+    print_list(list);
 
     // Test joining two lists
-    printf("\n-> Making two new lists\n");
+    printf("\n-> Making two new lists. Here they are:\n");
     for (i = 0; i < 10; i++)
     {
         append_list(test_list1, (rand() % 20 + 1));
@@ -197,10 +134,10 @@ int main(void)
     {
         append_list(test_list2, (rand() % 20 + 1));
     }   
-    printf("\n-> Here's the two new lists:\n");
     print_list(test_list1);
     print_list(test_list2);
-    printf("\n-> Here they are joined:\n");
+
+    printf("\n-> Concatenating the two new lists\n");
     test_joined = list_cat(test_joined, test_list1, test_list2);
     print_list(test_joined);
 
@@ -213,7 +150,7 @@ int main(void)
     print_list(test_list3);
 
     // Delete all values
-    printf("\n-> About to delete all 7\n");
+    printf("\n-> Deleting all occurences of 7\n");
     delete_all_value(test_list3, 7);
     print_list(test_list3);
 

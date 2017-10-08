@@ -6,7 +6,7 @@ This C module implements doubly-linked lists, and a variety of operations to per
 
 Each node in the list holds one element of signed integer data. 
 
-**Current Operations**
+**List Operations**
 
 - Creating the list
 - Appending elements
