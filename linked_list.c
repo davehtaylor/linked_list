@@ -41,7 +41,7 @@ static void destroy_nodes(Node *head)
 // Delete element helper function
 static void delete_next_element(List* list, Node *node)
 {
-    Node *temp1, *temp2;
+    Node *temp;
 
     // Make sure we're not trying to delete past the end
     if (node->next == NULL)
@@ -58,11 +58,11 @@ static void delete_next_element(List* list, Node *node)
     else
     {
         // Need to make sure we grab the prev as well as the next
-        temp1 = node->next->next;
-        temp1->prev = node;
+        temp = node->next->next;
+        temp->prev = node;
 
         free(node->next);
-        node->next = temp1;
+        node->next = temp;
     }
 }
 
@@ -83,7 +83,9 @@ static int max(int i, int j)
 // Create node helper function 
 static Node *create_node(int data) 
 {
-    Node *new_node = malloc(sizeof(Node));
+    Node *new_node = NULL;
+    
+    new_node = malloc(sizeof(Node));
 
     // Make sure we were able to allocate the memory
     if (new_node != NULL) 
@@ -104,7 +106,9 @@ static Node *create_node(int data)
 // Create list
 List *create_list(void)
 {
-    List *new_list = malloc(sizeof(List));
+    List *new_list = NULL;
+    
+    new_list = malloc(sizeof(List));
 
     // Make sure we were able to allocate the memory
     if (new_list != NULL) 
@@ -125,8 +129,6 @@ List *create_list(void)
 // Add an element to the tail of the list
 void append_list(List *list, int data) 
 {
-    Node *temp;
-
     // Make sure the list actually exists. If not, we'll create it
     if (list == NULL)
     {
@@ -512,7 +514,7 @@ void delete_tail(List *list)
 void delete_index(List *list, int index)
 {
     int i;
-    Node *cursor, *temp;
+    Node *cursor;
 
     // Make sure list exists, and that it's not empty
     if (list == NULL || list->head == NULL)
