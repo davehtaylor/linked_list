@@ -58,4 +58,4 @@ void delete_all_value(List *list, int key);
 // Destroy a list
 List *destroy_list(List *list); 
 
-#endif  // LINKED_LIST_H
+#endif  // ifndef LINKED_LIST_H
