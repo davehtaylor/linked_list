@@ -76,9 +76,9 @@ Returns the length of the list of type int. Arguments taken: the list in questio
 
 ---
 
-`destination = list_cat(destination, source1, source2)`
+`source1 = list_cat(&source1, &source2)`
 
-Returns a newly joined list of type List\*. Arguments taken: the destination list, the first source list, the second source list, all of type List\*. It is recommended to assign the return value of this function to a NULL list as destination. It will destroy any filled list passed to it as a destination. 
+Returns a newly joined list of type List\*. Arguments taken: the address of the first source list, and the address of the second source list, both of type List\*. This will join source2 onto the end of source1.  
 
 ---
 
