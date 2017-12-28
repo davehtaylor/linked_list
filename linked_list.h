@@ -23,7 +23,7 @@ void list_swap(List *list, int index1, int index2);
 int list_length(List *list);
 
 // Concatenate two lists
-List *list_cat(List *dest, List *list1, List *list2);
+List *list_cat(List **list1, List **list2);
 
 // Reverse list
 void reverse_list(List *list);

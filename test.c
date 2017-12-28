@@ -10,7 +10,6 @@ int main(void)
     List *test_list1 = NULL;
     List *test_list2 = NULL;
     List *test_list3 = NULL;
-    List *test_joined = NULL; 
     List *list = NULL;
     int i, len, count;
     srand(time(NULL));
@@ -25,7 +24,6 @@ int main(void)
     test_list1 = create_list();
     test_list2 = create_list();
     test_list3 = create_list();
-    test_joined = create_list();
 
     // Append
     printf("\n-> Appending '95'\n");
@@ -100,7 +98,7 @@ int main(void)
     print_list(list);
 
     // Delete occurences of a particular element
-    printf("\n-> Deleting all occurences of '95' in list\n");
+    printf("\n-> Deleting all occurences of '6' in list\n");
     delete_all_value(list, 6);
     print_list(list);
 
@@ -119,11 +117,6 @@ int main(void)
     delete_tail(list);
     print_list(list);
     
-    // Destroy it
-    printf("\n-> Destroying list\n");
-    list = destroy_list(list);
-    print_list(list);
-
     // Test joining two lists
     printf("\n-> Making two new lists. Here they are:\n");
     for (i = 0; i < 10; i++)
@@ -138,8 +131,12 @@ int main(void)
     print_list(test_list2);
 
     printf("\n-> Concatenating the two new lists\n");
-    test_joined = list_cat(test_joined, test_list1, test_list2);
-    print_list(test_joined);
+    test_list1 = list_cat(&test_list1, &test_list2);
+    print_list(test_list1);
+
+    printf("\n-> Here are the previous lists that were cat'd:\n");
+    print_list(test_list1);
+    print_list(test_list2);
 
     // Making a new list to test deleting a uniform list
     printf("\n-> Making a new list of all 7\n");
@@ -154,5 +151,32 @@ int main(void)
     delete_all_value(test_list3, 7);
     print_list(test_list3);
 
+    // Destroy it
+    printf("\n-> Destroying list\n");
+    list = destroy_list(list);
+    print_list(list);
+
+    // Destroy it
+    printf("\n-> Destroying test_list1\n");
+    test_list1 = destroy_list(test_list1);
+    print_list(test_list1);
+
+    // Destroy it
+    printf("\n-> Destroying test_list2\n");
+    test_list2 = destroy_list(test_list2);
+    print_list(test_list2);
+    
+    // Destroy it
+    printf("\n-> Destroying test_list3\n");
+    test_list3 = destroy_list(test_list3);
+    print_list(test_list3);
+   
+    // Print test_list1 and test_list2
+    printf("\nPrinting lists 1 and 2"); 
+    printf("\n-> Test list 1: ");
+    print_list(test_list1);
+    printf("\n-> Test list 2: ");
+    print_list(test_list2);
+    putchar('\n');
     return 0;
 }

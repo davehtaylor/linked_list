@@ -262,27 +262,69 @@ int list_length(List *list)
 }
 
 
-// Concatenate two lists
-List *list_cat(List* dest, List *list1, List *list2)
+// Concatenate two lists. The second list will be added on to the first. 
+List *list_cat(List **list1, List **list2)
 {
-    // See if the destination exists
-    if (dest == NULL)
-        dest = create_list();
+    // I'm sure some of these conditions could be combined, but I'm breaking
+    // them out for readability. 
+    //
+    // Since we're concatenating the lists, list1 will hold both lists. So
+    // while the addresses of the nodes in list2 will still be valid, the
+    // outer struct will no longer be needed. We we'll free the struct 
+    // when necessary. And when we destroy list1, all the former list2 nodes
+    // should be properly freed. Hopefully this will avoid memory leaks. 
 
-    // See if there is something in the destination list. If so,
-    // we'll destroy it so we don't leak memory
-    if (dest->head != NULL)
-        destroy_nodes(dest->head); 
-    
-    // Get the info from the first list
-    dest->head = list1->head;
-    dest->tail = list1->tail;
+    // If both lists are NULL
+    if (list1 == NULL && list2 == NULL)
+    {
+        return NULL;
+    }
+    // If only list2 is NULL
+    else if (list1 != NULL && list2 == NULL)
+    {
+        return *list1;
+    }
+    // If only list1 is NULL
+    else if (list1 == NULL && list2 != NULL)
+    {
+        list1 = list2;
 
-    // Now connect them
-    dest->tail->next = list2->head;
-    dest->tail = list2->tail;
+        free(*list2);
+        *list2 = NULL;
 
-    return dest;
+        return *list1;
+    }
+    // If list1 is not NULL, but is empty
+    else if ((list1 != NULL && (*list1)->head == NULL) && 
+            (list2 != NULL && (*list2)->head != NULL))
+    {
+        (*list1)->head = (*list2)->head;
+        (*list1)->tail = (*list2)->tail;
+
+        free(*list2);
+        *list2 = NULL;
+
+        return *list1;
+    }
+    // If list2 is not NULL, but is empty
+    else if ((list1 != NULL && (*list1)->head != NULL) && 
+            (list2 != NULL && (*list2)->head == NULL))
+    {
+        free(*list2);
+        *list2 = NULL;
+
+        return *list1;
+    }
+    else 
+    {
+        (*list1)->tail->next = (*list2)->head;
+        (*list1)->tail = (*list2)->tail;
+
+        free(*list2);
+        *list2 = NULL;
+
+        return *list1;
+    }
 }
 
 
@@ -366,7 +408,7 @@ void print_index(List *list, int index)
         printf("<list does not exist>\n"); 
     }
     // Make sure the list isn't empty
-    else if (list->head == NULL)
+    else if (list != NULL && list->head == NULL)
     {
         printf("<empty list>\n");
     }
@@ -402,7 +444,7 @@ void print_list(List *list)
         printf("<list does not exist>\n"); 
     }
     // Make sure the list isn't empty
-    else if (list->head == NULL)
+    else if (list != NULL && list->head == NULL)
     {
         printf("<empty list>\n");
     }
@@ -431,7 +473,7 @@ void print_list_reverse(List *list)
         printf("<list does not exist>\n"); 
     }
     // Make sure the list isn't empty
-    else if (list->head == NULL)
+    else if (list != NULL && list->head == NULL)
     {
         printf("<empty list>\n");
     }
@@ -581,7 +623,18 @@ void delete_all_value(List *list, int key)
 
 
 // Destroy a list
-List *destroy_list(List *list) 
+static void destroy_list_helper(Node *head) 
+{
+    if (head == NULL)
+        return;
+
+    destroy_list_helper(head->next);
+    free(head);
+}
+
+
+// Gateway function for list destruction
+List *destroy_list(List *list)
 {
     // Make sure the list exists
     if (list == NULL)
@@ -589,18 +642,16 @@ List *destroy_list(List *list)
         return NULL;
     }
     // See if the list is empty
-    else if (list->head == NULL)
+    else if (list != NULL && list->head == NULL)
     {
         free(list);
         return NULL;
     }
-    else 
+    // Free all the nodes recursively, then free the list struct
+    else
     {
-        destroy_nodes(list->head);
-
-        // Free the whole struct
+        destroy_list_helper(list->head);
         free(list);
-
         return NULL;
     }
 }
