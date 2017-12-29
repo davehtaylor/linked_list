@@ -40,7 +40,7 @@ Each node in the list holds one element of signed integer data.
 
 ### Operations
 
-`list_name = create_list(void)`
+`list_name = create_list()`
 
 Returns the newly created, empty list of type List\*. No arguments taken.
 
@@ -76,9 +76,9 @@ Returns the length of the list of type int. Arguments taken: the list in questio
 
 ---
 
-`source1 = list_cat(&source1, &source2)`
+`list_name1 = list_cat(&list_name1, &list_name2)`
 
-Returns a newly joined list of type List\*. Arguments taken: the address of the first source list, and the address of the second source list, both of type List\*. This will join source2 onto the end of source1.  
+Returns a joined list of type List\*. Arguments taken: the address of the first list, and the address of the second list, both of type List\*. This will join list_name2 onto the end of list_name1.  
 
 ---
 
