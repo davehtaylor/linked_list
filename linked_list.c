@@ -22,22 +22,6 @@ typedef struct List
 } List;
 
  
-// Destroy nodes helper function
-static void destroy_nodes(Node *head)
-{
-    Node *cursor = head, *temp;
-
-    while (cursor != NULL) 
-    {
-        // Save address of next node after cursor then free the cursor 
-        temp = cursor->next;
-        free(cursor);
-        // Move the cursor to the address of the next node stored in temp
-        cursor = temp;
-    }
-}
-
-
 // Delete element helper function
 static void delete_next_element(List* list, Node *node)
 {
@@ -79,6 +63,7 @@ static int max(int i, int j)
 {
     return (i > j) ? i : j;
 }
+
 
 // Create node helper function 
 static Node *create_node(int data) 
